@@ -6,15 +6,23 @@ namespace BotReply
     class Program
     {
         public static int Main(string[] args)
-            => CommandLineApplication.Execute<Program>(args);
-
-        [Option(Description = "The subject")]
-        public string Subject { get; }
-
-        private void OnExecute()
         {
-            var subject = Subject ?? "world";
-            Console.WriteLine($"Hello {subject}!");
+            var app = new CommandLineApplication();
+
+            app.HelpOption();
+            var optionSubject = app.Option("-s|--subject <SUBJECT>", "The subject", CommandOptionType.SingleValue);
+
+            app.OnExecute(() =>
+            {
+                var subject = optionSubject.HasValue()
+                    ? optionSubject.Value()
+                    : "world";
+
+                Console.WriteLine($"Hello {subject}!");
+                return 0;
+            });
+
+            return app.Execute(args);
         }
     }
 }

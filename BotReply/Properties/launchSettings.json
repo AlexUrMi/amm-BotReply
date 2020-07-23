@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BotReply": {
+      "commandName": "Project",
+      "commandLineArgs": "-h"
+    }
+  }
+}
