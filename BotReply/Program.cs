@@ -1,12 +1,20 @@
-﻿using System;
+﻿using McMaster.Extensions.CommandLineUtils;
+using System;
 
 namespace BotReply
 {
     class Program
     {
-        static void Main(string[] args)
+        public static int Main(string[] args)
+            => CommandLineApplication.Execute<Program>(args);
+
+        [Option(Description = "The subject")]
+        public string Subject { get; }
+
+        private void OnExecute()
         {
-            Console.WriteLine("Hello World!");
+            var subject = Subject ?? "world";
+            Console.WriteLine($"Hello {subject}!");
         }
     }
 }
